@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="adec313c-9335-407f-bfaf-6e4e1ad88079" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Event_Manager/.idea/workspace.xml" afterPath="$PROJECT_DIR$/Event_Manager/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Event_Manager/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Event_Manager/app/app.iml" afterPath="" />
     </list>
     <ignored path="EventManager.iws" />
     <ignored path=".idea/workspace.xml" />
