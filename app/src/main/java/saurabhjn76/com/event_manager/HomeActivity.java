@@ -1,8 +1,16 @@
 package saurabhjn76.com.event_manager;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,14 +20,32 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private RecyclerView recyclerView;
+    private TextView emptyView;
+    private List<Tile> tileList = new ArrayList<>();
+    private TilesAdapter tilesAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        emptyView = (TextView) findViewById(R.id.empty_view);
+        tilesAdapter = new TilesAdapter(tileList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(tilesAdapter);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -27,8 +53,39 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                builder.setTitle("Create task tile");
+                // Get the layout inflater
+                LayoutInflater inflater = HomeActivity.this.getLayoutInflater();
+
+                // Inflate and set the layout for the dialog
+                // Pass null as the parent view because its going in the dialog layout
+                builder.setView(inflater.inflate(R.layout.dialog_create_tile, null))
+                        // Add action buttons
+                        .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                // sign in the user ...
+                                Dialog f = (Dialog) dialog;
+            /* ERROR HERE! */
+                                EditText title,description,deadline;
+                                title= (EditText) f.findViewById(R.id.title);
+                                description = (EditText) f.findViewById(R.id.description);
+                                deadline =(EditText) f.findViewById(R.id.deadline);
+                               // Toast.makeText(getApplicationContext(),title.getText()+" ",Toast.LENGTH_SHORT).show();
+                                Tile tile = new Tile(title.getText().toString(),description.getText().toString(),tileList.size()+1,deadline.getText().toString());
+                                tileList.add(tile);
+                                tilesAdapter.notifyDataSetChanged();
+
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.dismiss();
+                            }
+                        });
+                builder.create().show();
+
             }
         });
 

@@ -3,6 +3,7 @@ package saurabhjn76.com.event_manager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -32,6 +33,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.Manifest.permission.INTERNET;
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -83,10 +85,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        Button mEmailSignUpButton = (Button) findViewById(R.id.email_sign_up_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+        mEmailSignUpButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this,RegisterActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -186,7 +196,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            mAuthTask.execute();
+            Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
+            startActivity(intent);
         }
     }
 
