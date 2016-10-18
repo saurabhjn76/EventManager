@@ -48,6 +48,14 @@ public class HomeActivity extends AppCompatActivity
         recyclerView.setAdapter(tilesAdapter);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        if (tileList.size()==0) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +83,15 @@ public class HomeActivity extends AppCompatActivity
                                // Toast.makeText(getApplicationContext(),title.getText()+" ",Toast.LENGTH_SHORT).show();
                                 Tile tile = new Tile(title.getText().toString(),description.getText().toString(),tileList.size()+1,deadline.getText().toString());
                                 tileList.add(tile);
+                                if (tileList.size()==0) {
+                                    recyclerView.setVisibility(View.GONE);
+                                    emptyView.setVisibility(View.VISIBLE);
+                                }
+                                else {
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                    emptyView.setVisibility(View.GONE);
+                                }
+
                                 tilesAdapter.notifyDataSetChanged();
 
                             }
