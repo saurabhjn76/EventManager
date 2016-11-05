@@ -23,4 +23,11 @@
     <string name="title_activity_tile__detail">Tile_Detail</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_task__details">Task_Details</string>
+    <string name="personal_board">Personal Board</string>
+    <string-array name="boards">
+        <item>Personal Board</item>
+        <item> Ventura</item>
+        <item>Exams</item>
+        <item>Add More</item>
+    </string-array>
 </resources>
