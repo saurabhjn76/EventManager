@@ -25,7 +25,9 @@ android:layout_height="wrap_content">
         android:layout_marginBottom="16dp"
         android:fontFamily="sans-serif"
         android:hint="Description"/>
-    <EditText
+
+
+    <Button
         android:id="@+id/deadline"
         android:inputType="datetime"
         android:layout_width="match_parent"
@@ -34,6 +36,7 @@ android:layout_height="wrap_content">
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="16dp"
+        android:onClick="Datepicker"
         android:fontFamily="sans-serif"
-        android:hint="Enter the deadline:"/>
+        android:hint="Set the Date:"/>
 </LinearLayout>

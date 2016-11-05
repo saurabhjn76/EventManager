@@ -1,5 +1,6 @@
 package saurabhjn76.com.event_manager;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -22,13 +24,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,6 +45,8 @@ public class HomeActivity extends AppCompatActivity
     private TilesAdapter tilesAdapter;
     private Spinner spinner;
     private Toolbar toolbar;
+    private Button deadline;
+    private int day=5,month=12,yar=2006;
     ArrayAdapter <String> spinnerAdapter;
 
 
@@ -85,7 +94,7 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
+                 final AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
                 builder.setTitle("Create task tile");
                 // Get the layout inflater
                 LayoutInflater inflater = HomeActivity.this.getLayoutInflater();
@@ -99,13 +108,14 @@ public class HomeActivity extends AppCompatActivity
                             public void onClick(DialogInterface dialog, int id) {
                                 // sign in the user ...
                                 Dialog f = (Dialog) dialog;
-            /* ERROR HERE! */
-                                EditText title,description,deadline;
+                                final EditText title,description;
                                 title= (EditText) f.findViewById(R.id.title);
                                 description = (EditText) f.findViewById(R.id.description);
-                                deadline =(EditText) f.findViewById(R.id.deadline);
+                                deadline =(Button) f.findViewById(R.id.deadline);
+                                builder.setCancelable(false);
+
                                // Toast.makeText(getApplicationContext(),title.getText()+" ",Toast.LENGTH_SHORT).show();
-                                Tile tile = new Tile(title.getText().toString(),description.getText().toString(),tileList.size()+1,deadline.getText().toString());
+                                Tile tile = new Tile(title.getText().toString(),description.getText().toString(),tileList.size()+1,day+"/"+month+"/"+yar);
                                 tileList.add(tile);
                                 if (tileList.size()==0) {
                                     recyclerView.setVisibility(View.GONE);
@@ -148,6 +158,26 @@ public class HomeActivity extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+    }
+    public  void Datepicker(View v){
+       // Toast.makeText(getApplicationContext(),"sdsadas",Toast.LENGTH_SHORT).show();
+       // Toast.makeText(v.getContext(),"sasdasd",Toast.LENGTH_SHORT).show();
+        final Calendar c = Calendar.getInstance();
+
+        DatePickerDialog dpd = new DatePickerDialog(v.getContext(),
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                                day=dayOfMonth;
+                                month=monthOfYear;
+                                yar=year;
+
+                    }
+                }, c.get(Calendar.YEAR),c.get(Calendar.MONTH),c.get(Calendar.DATE));
+        dpd.show();
+
     }
 
     @Override
