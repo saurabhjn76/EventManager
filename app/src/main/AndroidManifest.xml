@@ -40,6 +40,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="saurabhjn76.com.event_manager.LoginActivity" />
         </activity>
+        <activity
+            android:name=".Task_Details"
+            android:label="@string/title_activity_task__details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -20,4 +20,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_tile__detail">Tile_Detail</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_task__details">Task_Details</string>
 </resources>

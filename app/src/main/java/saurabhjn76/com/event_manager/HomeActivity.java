@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity
         emptyView = (TextView) findViewById(R.id.empty_view);
         tilesAdapter = new TilesAdapter(tileList);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(tilesAdapter);
