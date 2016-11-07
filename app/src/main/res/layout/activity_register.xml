@@ -1,34 +1,141 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="saurabhjn76.com.event_manager.RegisterActivity">
+    android:layout_height="fill_parent"
+    android:layout_width="fill_parent"
+    android:orientation = "vertical"
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    >
 
-    </android.support.design.widget.AppBarLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
 
-    <include layout="@layout/content_register" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_media_play" />
+        android:orientation="vertical"
 
-</android.support.design.widget.CoordinatorLayout>
+        android:paddingBottom="80dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".MainActivity">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            android:textColor="#f48342"
+            android:paddingBottom="20dp"
+            android:text="Sign Up"
+            android:id="@+id/textView" />
+
+        <EditText
+            android:id="@+id/editTextUsername"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="segoe UI"
+            android:hint="User ID"
+            android:inputType="text"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:maxLength="20"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#222222"
+            android:textColorHint="#999999" />
+
+        <EditText
+            android:id="@+id/editTextFirstName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="segoe UI"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:hint="First Name"
+            android:inputType="text"
+            android:maxLength="20"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#222222"
+            android:textColorHint="#999999" />
+
+        <EditText
+            android:id="@+id/editTextLastName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:fontFamily="segoe UI"
+            android:hint="Last Name"
+            android:inputType="text"
+            android:layout_marginTop="10dp"
+            android:maxLength="20"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#222222"
+            android:textColorHint="#999999" />
+
+
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:inputType="textEmailAddress"
+            android:layout_marginRight="50dp"
+            android:fontFamily="segoe UI"
+            android:hint="Email ID"
+            android:layout_marginTop="10dp"
+
+            android:maxLength="200"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:textColor="#222222"
+            android:textColorHint="#999999" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:fontFamily="segoe UI"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:password="true"
+            android:textColor="#222222"
+            android:textColorHint="#999999" />
+
+
+
+
+        <Button
+            android:layout_marginTop="65dp"
+            android:id="@+id/buttonRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#f48342"
+            android:fontFamily="segoe UI"
+            android:gravity="center"
+            android:onClick="clickNext"
+            android:textColor="#ffffff"
+            android:text="NEXT"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:layout_gravity="center_horizontal" />
+
+
+
+
+    </LinearLayout>
+
+</ScrollView>
