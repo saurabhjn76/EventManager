@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "881751632509",
+    "firebase_url": "https://eventmanage-e720e.firebaseio.com",
+    "project_id": "eventmanage-e720e",
+    "storage_bucket": "eventmanage-e720e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:881751632509:android:fae9514abc9126f4",
+        "android_client_info": {
+          "package_name": "saurabhjn76.com.event_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "881751632509-r0qs3ildc42a39qn70dkup517bllh31a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwQWo3WemdkU9F3TIetl61tzDeoBVgAeM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
