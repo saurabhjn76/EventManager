@@ -3,6 +3,7 @@ package saurabhjn76.com.event_manager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +49,7 @@ public class HomeActivity extends AppCompatActivity
     private TilesAdapter tilesAdapter;
     private Spinner spinner;
     private Toolbar toolbar;
+    private FirebaseAuth firebaseAuth;
     private Button deadline;
     private int day=5,month=12,yar=2006;
     ArrayAdapter <String> spinnerAdapter;
@@ -54,6 +59,16 @@ public class HomeActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        firebaseAuth = FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser() == null){
+            //closing this activity
+            finish();
+            //starting login activity
+            startActivity(new Intent(this, LoginActivity.class));
+        }
+
+        //getting current user
+        FirebaseUser user = firebaseAuth.getCurrentUser();
         toolbar =(Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         spinner =(Spinner) findViewById(R.id.spinner);
@@ -219,7 +234,11 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
-
+            firebaseAuth.signOut();
+            //closing activity
+            finish();
+            //starting login activity
+            startActivity(new Intent(this, LoginActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

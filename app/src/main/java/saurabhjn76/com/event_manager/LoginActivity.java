@@ -30,6 +30,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +65,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     // UI references.
     private AutoCompleteTextView mEmailView;
+
+    private FirebaseAuth firebaseAuth;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -70,6 +77,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
+        firebaseAuth =FirebaseAuth.getInstance();
+        if(firebaseAuth.getCurrentUser() != null){
+            //close this activity
+            finish();
+            //opening profile activity
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        }
+
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
@@ -194,6 +209,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            firebaseAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+
+                            //if the task is successfull
+                            if(task.isSuccessful()){
+                                //start the profile activity
+                                finish();
+                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                            }
+                        }
+                    });
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute();

@@ -1,8 +1,10 @@
 package saurabhjn76.com.event_manager;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +16,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,18 +37,12 @@ public class RegisterActivity extends AppCompatActivity {
     public static final String KEY_FIRSTNAME = "first_name";
     public static final String KEY_LASTNAME = "last_name";
     String token;
-
-
-
-
-
-
-
     private EditText editTextUsername;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextFirstName;
     private EditText editTextLastName;
+    private FirebaseAuth firebaseAuth;
 
 
 
@@ -57,58 +57,48 @@ public class RegisterActivity extends AppCompatActivity {
         editTextEmail= (EditText) findViewById(R.id.editTextEmail);
         editTextFirstName = (EditText) findViewById(R.id.editTextFirstName);
         editTextLastName = (EditText) findViewById(R.id.editTextLastName);
+        firebaseAuth =FirebaseAuth.getInstance();
     }
 
-    private void registerUser(){
+    private void registerUser() {
         final String user_name = editTextUsername.getText().toString().trim();
         final String password = editTextPassword.getText().toString().trim();
         final String email = editTextEmail.getText().toString().trim();
         final String first_name = editTextFirstName.getText().toString().trim();
         final String last_name = editTextLastName.getText().toString().trim();
 
+        //checking if email and passwords are empty
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(this, "Please enter email", Toast.LENGTH_LONG).show();
+            return;
+        }
 
-
-
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jobj = new JSONObject(response);
-                            token = jobj.getString("token");
-                           // PrefManger prefManger = new PrefManger(RegisterActivity.this);
-                            //prefManger.setToken(token);
-                            Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
-                            startActivity(intent);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(RegisterActivity.this,error.toString(), Toast.LENGTH_LONG).show();
-                    }
-                }){
+        if (TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "Please enter password", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (TextUtils.isEmpty(user_name)) {
+            Toast.makeText(this, "Please enter username", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if (TextUtils.isEmpty(first_name)) {
+            Toast.makeText(this, "Please enter first name                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ", Toast.LENGTH_LONG).show();
+            return;
+        }
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
-            protected Map<String,String> getParams(){
-                Map<String,String> params = new HashMap<String, String>();
-                params.put(KEY_USERNAME,user_name);
-                params.put(KEY_PASSWORD,password);
-                params.put(KEY_EMAIL, email);
-                params.put(KEY_FIRSTNAME,first_name);
-                params.put(KEY_LASTNAME,last_name);
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // User sucessfully registered and login
+                    Toast.makeText(getApplicationContext(), "SUcessful", Toast.LENGTH_SHORT).show();
 
-                return params;
+                } else {
+                    Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
+                }
             }
-
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
+        });
     }
+
 
     public void clickNext(View view) {
         registerUser();
